@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Home</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css"
+          integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
+</head>
+<body>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-4">
+            <h1>Danh sách thành phố</h1>
+        </div>
+        <div class="col-md-5"></div>
+        <div class="col-md-3">
+            <a class="btn btn-primary" th:href="@{/city/add-new}">Thêm thành phố</a>
+        </div>
+    </div>
+    <div class="row">
+        <table class="table table-bordered">
+            <thead>
+            <tr>
+                <th scope="col">Thành phố</th>
+                <th scope="col">Quốc gia</th>
+                <th scope="col" colspan="2" style="text-align: center">Action</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="city : ${cities}">
+                <td><a th:href="@{/city/show-city/__${city.getName()}__}" th:text="${city.getName()}"></a></td>
+                <td th:text="${city.getCountry().getCountryName()}"></td>
+                <td style="text-align: center"><a class="btn btn-danger" th:href="@{city/delete/__${city.id}__}"
+                                                  onclick="return confirm('Are you sure to delete?')">Delete</a></td>
+                <td style="text-align: center"><a class="btn btn-success" th:href="@{/city/update/__${city.id}__}">Update</a>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+</body>
+</html>

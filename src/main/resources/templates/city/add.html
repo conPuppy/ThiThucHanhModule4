@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Add new city</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css"
+          integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
+</head>
+<body>
+<div class="container">
+    <div class="row">
+        <h1>Thêm thành phố</h1>
+    </div>
+    <div class="row">
+        <a th:href="@{/city}" class="btn btn-link">Quay lại danh sách thành phố</a>
+    </div>
+    <div class="row">
+        <form th:object="${city}" th:action="@{/city/add-new}" method="post">
+            <div class="form-group">
+                <label for="cityName">Tên</label>
+                <input type="text" class="form-control" id="cityName" th:field="*{name}" required>
+                <span th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></span>
+            </div>
+            <div class="form-group">
+                <h5 for="cityName">Quốc gia</h5>
+                <select th:field="*{country}">
+                    <option th:each="country : ${countries}" th:value="${country.getId()}"
+                            th:selected="*{country}!=null ? (${country.id} == *{country.id}) : false"
+                            th:text="${country.countryName}"></option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="cityArea">Diện tích</label>
+                <input type="text" class="form-control" id="cityArea" th:field="*{area}" required>
+                <span th:if="${#fields.hasErrors('area')}" th:errors="*{area}"></span>
+            </div>
+            <div class="form-group">
+                <label for="cityPopulation">Dân số</label>
+                <input type="text" class="form-control" id="cityPopulation" th:field="*{population}" required>
+                <span th:if="${#fields.hasErrors('population')}" th:errors="*{population}"></span>
+            </div>
+            <div class="form-group">
+                <label for="cityGDP">GDP</label>
+                <input type="text" class="form-control" id="cityGDP" th:field="*{GDP}" required>
+                <span th:if="${#fields.hasErrors('GDP')}" th:errors="*{GDP}"></span>
+            </div>
+            <div class="form-group">
+                <label for="cityDescription">Giới thiệu</label>
+                <textarea class="form-control" required id="cityDescription" th:field="*{description}"></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+    </div>
+</div>
+</body>
+</html>
